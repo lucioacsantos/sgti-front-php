@@ -1,43 +1,26 @@
 <?php
-
 class LdapAuth {
 
-    private $config;
-
-    public function __construct() {
-        $this->config = require __DIR__ . '/../../config/config.php';
-    }
-
     public function authenticate($username, $password) {
-        $ldapConfig = $this->config['ldap'];
+        $c = require __DIR__ . '/../../config/config.php';
 
-        $host = $ldapConfig['host'];
-        $port = $ldapConfig['port'];
-
-        $conn = ldap_connect($host, $port);
-
-        if (!$conn) {
-            throw new Exception("Erro ao conectar no LDAP");
-        }
+        $conn = ldap_connect($c['auth']['ldap']['host'], $c['auth']['ldap']['port']);
 
         ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($conn, LDAP_OPT_REFERRALS, 0);
 
-        // formato usuário@dominio
-        $userDn = "{$username}@{$ldapConfig['domain']}";
+        $userDn = "$username@{$c['auth']['ldap']['domain']}";
 
-        // tentativa de bind
         if (!@ldap_bind($conn, $userDn, $password)) {
             return false;
         }
 
-        // buscar dados do usuário
-        $filter = "(sAMAccountName={$username})";
+        $usernameSafe = ldap_escape($username, "", LDAP_ESCAPE_FILTER);
 
         $search = ldap_search(
             $conn,
-            $ldapConfig['base_dn'],
-            $filter,
+            $c['auth']['ldap']['base_dn'],
+            "(sAMAccountName=$usernameSafe)",
             ["displayName", "mail", "memberOf"]
         );
 
@@ -47,24 +30,34 @@ class LdapAuth {
             return false;
         }
 
-        $user = $entries[0];
+        $entry = $entries[0];
+
+        // 🔥 DEBUG (temporário)
+        # print_r($entry);
+
+        $groups = $this->extractGroups($entry);
 
         return [
             'username' => $username,
-            'nome' => $user['displayname'][0] ?? $username,
-            'email' => $user['mail'][0] ?? null,
-            'groups' => $this->extractGroups($user['memberof'] ?? [])
+            'nome' => $entry['displayname'][0] ?? $username,
+            'email' => $entry['mail'][0] ?? null,
+            'groups' => $groups
         ];
+
     }
 
-    private function extractGroups($memberOf) {
+    private function extractGroups($entry) {
         $groups = [];
 
-        if (!is_array($memberOf)) return $groups;
+        if (!isset($entry['memberof'])) {
+            return $groups;
+        }
 
-        foreach ($memberOf as $g) {
-            if (preg_match('/CN=([^,]+)/', $g, $matches)) {
-                $groups[] = $matches[1];
+        for ($i = 0; $i < $entry['memberof']['count']; $i++) {
+            $dn = $entry['memberof'][$i];
+
+            if (preg_match('/CN=([^,]+)/', $dn, $m)) {
+                $groups[] = strtoupper(trim($m[1]));
             }
         }
 

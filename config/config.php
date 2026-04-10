@@ -31,6 +31,15 @@ return [
             'base_dn' => 'dc=energia,dc=org,dc=br',
             'domain' => 'energia.org.br',
             'use_ssl' => false, // true se usar ldaps://
+        ],
+
+        'roles' => [
+            'admin' => [
+                'G_GESIN_GOSD_OMIS'
+            ],
+            'read' => [
+                'G_GESIN'
+            ]
         ]
     ]
 ];

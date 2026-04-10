@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
-    exit;
-}
+require_once 'src/auth/AuthService.php';
+
+// exige leitura mínima
+AuthService::requireRead();
 
 $user = $_SESSION['user'];
 ?>
@@ -14,7 +14,7 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventário Técnico OCP/IT</title>
+    <title>SGTI ::: CMDB</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
@@ -23,7 +23,7 @@ $user = $_SESSION['user'];
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100 text-white p-3">
-            <h4><i class="bi bi-box-seam"></i> Inventário</h4>
+            <h4><i class="bi bi-box-seam"></i> SGTI ::: CMDB</h4>
             <hr>
             <ul class="nav flex-column">
                 <li class="nav-item"><a href="?page=host" class="nav-link text-white"><i class="bi bi-pc-display"></i> Hosts</a></li>
@@ -97,6 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+</script>
+
+<script>
+function logoutConfirm() {
+    if (confirm("Deseja realmente sair?")) {
+        window.location.href = "logout.php";
+    }
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

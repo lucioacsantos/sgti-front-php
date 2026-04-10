@@ -1,6 +1,12 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h3><i class="bi bi-pc-display"></i> Gerenciamento de Hosts</h3>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHost">Novo Host</button>
+                    <span class="me-3 text-muted">
+                        <h4><i class="bi bi-person"></i> <?= htmlspecialchars($user['username']) ?> (<?= $user['role'] ?>)</h4>
+                    </span>
+
+                    <a href="logout.php" class="btn btn-danger">
+                        <i class="bi bi-box-arrow-right"></i> Sair
+                    </a>
                 </div>
 
                 <div class="row mb-3">
