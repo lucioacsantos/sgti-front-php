@@ -2,6 +2,7 @@
 require_once 'src/db/Database.php';
 require_once 'src/dao/BaseDAO.php';
 require_once 'src/dao/AtivoDAO.php';
+require_once 'src/dao/ConfigDAO.php';
 require_once 'src/dao/RelacionamentoDAO.php';
 
 
@@ -73,6 +74,31 @@ function getAplicacoesView() {
     }
 
     return $data;
+}
+
+function getAllStatusAtivo() {
+    $dao = new ConfigDAO();
+    return $dao->getAllStatusAtivo();
+}
+
+function getAllTipoAtivo() {
+    $dao = new ConfigDAO();
+    return $dao->getAllTipoAtivo();
+}
+
+function getAllAmbiente() {
+    $dao = new ConfigDAO();
+    return $dao->getAllAmbiente();
+}
+
+function getAllCriticidade() {
+    $dao = new ConfigDAO();
+    return $dao->getAllCriticidade();
+}
+
+function getAllRelacionamentos() {
+    $dao = new RelacionamentoDAO();
+    return $dao->getAll();
 }
 
 ?>

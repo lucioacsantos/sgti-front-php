@@ -1,12 +1,19 @@
 <?php
 session_start();
 
-require_once 'src/auth/AuthService.php';
+// Autenticação e autorização
+/* require_once 'src/auth/AuthService.php';
 
 // exige leitura mínima
 AuthService::requireRead();
 
-$user = $_SESSION['user'];
+$user = $_SESSION['user']; */
+
+/* Usuário de desenvolvimento - sempre admin */
+$user = [
+    'username' => 'admin',
+    'role' => 'cmdb-admin'
+];
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +32,41 @@ $user = $_SESSION['user'];
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100 text-white p-3">
             <h4><i class="bi bi-box-seam"></i> SGTI ::: CMDB</h4>
             <hr>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a href="?page=host" class="nav-link text-white"><i class="bi bi-pc-display"></i> Hosts</a></li>
-                <!--<li class="nav-item"><a href="?page=ambiente" class="nav-link text-white"><i class="bi bi-cloud"></i> Ambientes</a></li>
-                <li class="nav-item"><a href="?page=ocp_cluster" class="nav-link text-white"><i class="bi bi-hdd-stack"></i> OCP Clusters</a></li>-->
-                <li class="nav-item"><a href="?page=aplicacao" class="nav-link text-white"><i class="bi bi-cpu"></i> Aplicações</a></li>
-                <!--class="nav-item"><a href="?page=servico" class="nav-link text-white"><i class="bi bi-gear-wide-connected"></i> Serviços/Portas</a></li>-->
-            </ul>
+            <div class="accordion accordion-flush" id="accordionMenu">
+                <div class="accordion-item bg-dark border-secondary">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdministracao">
+                            <i class="bi bi-gear"></i> Administração
+                        </button>
+                    </h2>
+                    <div id="collapseAdministracao" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <div class="accordion-body p-0">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a href="?page=ambiente" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Ambiente</a></li>
+                                <li class="nav-item"><a href="?page=criticidade" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Criticidade</a></li>
+                                <li class="nav-item"><a href="?page=relacionamentos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Relacionamentos</a></li>
+                                <li class="nav-item"><a href="?page=status" class="nav-link text-white-50 ps-4"><i class="bi bi-lock"></i> Status</a></li>
+                                <li class="nav-item"><a href="?page=tipo" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-dark border-secondary">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInventario">
+                            <i class="bi bi-collection"></i> Inventário
+                        </button>
+                    </h2>
+                    <div id="collapseInventario" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <div class="accordion-body p-0">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a href="?page=host" class="nav-link text-white-50 ps-4"><i class="bi bi-pc-display"></i> Hosts</a></li>
+                                <li class="nav-item"><a href="?page=aplicacao" class="nav-link text-white-50 ps-4"><i class="bi bi-cpu"></i> Aplicações</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <main class="col-md-10 ms-sm-auto px-md-4 py-4">
@@ -47,6 +82,21 @@ $user = $_SESSION['user'];
                 elseif ($page == 'aplicacao'):
                     $aplicacoes = getAplicacoesView();
                     include 'views/aplicacoes.php';
+                elseif ($page == 'ambiente'):
+                    $ambientes = getAllAmbiente();
+                    include 'views/ambientes.php';
+                elseif ($page == 'criticidade'):
+                    $criticidades = getAllCriticidade();
+                    include 'views/criticidades.php';
+                elseif ($page == 'relacionamentos'):
+                    $relacionamentos = getAllRelacionamentos();
+                    include 'views/relacionamentos.php';
+                elseif ($page == 'status'):
+                    $statuses = getAllStatusAtivo();
+                    include 'views/statuses.php';
+                elseif ($page == 'tipo'):
+                    $tipos = getAllTipoAtivo();
+                    include 'views/tipos.php';
                 else:
                     print('<h2><i class="bi bi-exclamation-triangle"></i> Página não encontrada</h2>');
                 endif;
