@@ -46,7 +46,7 @@ $user = [
                                 <li class="nav-item"><a href="?page=criticidade" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Criticidade</a></li>
                                 <li class="nav-item"><a href="?page=relacionamentos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Relacionamentos</a></li>
                                 <li class="nav-item"><a href="?page=status" class="nav-link text-white-50 ps-4"><i class="bi bi-lock"></i> Status</a></li>
-                                <li class="nav-item"><a href="?page=tipo" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipo</a></li>
+                                <li class="nav-item"><a href="?page=tipos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipos</a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,21 +82,27 @@ $user = [
                 elseif ($page == 'aplicacao'):
                     $aplicacoes = getAplicacoesView();
                     include 'views/aplicacoes.php';
+
                 elseif ($page == 'ambiente'):
                     $ambientes = getAllAmbiente();
                     include 'views/ambientes.php';
+
                 elseif ($page == 'criticidade'):
                     $criticidades = getAllCriticidade();
                     include 'views/criticidades.php';
+
                 elseif ($page == 'relacionamentos'):
-                    $relacionamentos = getAllRelacionamentos();
+                    $relacionamentos = getAllTipoRelacionamento();
                     include 'views/relacionamentos.php';
+                    
                 elseif ($page == 'status'):
-                    $statuses = getAllStatusAtivo();
-                    include 'views/statuses.php';
-                elseif ($page == 'tipo'):
+                    $status = getAllStatusAtivo();
+                    include 'views/status.php';
+
+                elseif ($page == 'tipos'):
                     $tipos = getAllTipoAtivo();
                     include 'views/tipos.php';
+
                 else:
                     print('<h2><i class="bi bi-exclamation-triangle"></i> Página não encontrada</h2>');
                 endif;

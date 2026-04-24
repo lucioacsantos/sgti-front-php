@@ -96,6 +96,11 @@ function getAllCriticidade() {
     return $dao->getAllCriticidade();
 }
 
+function getAllTipoRelacionamento() {
+    $dao = new ConfigDAO();
+    return $dao->getAllTipoRelacionamento();
+}
+
 function getAllRelacionamentos() {
     $dao = new RelacionamentoDAO();
     return $dao->getAll();

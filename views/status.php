@@ -1,5 +1,5 @@
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h3><i class="bi bi-pc-display"></i> Relacionamentos</h3>
+                    <h3><i class="bi bi-pc-display"></i> Status</h3>
                     <span class="me-3 text-muted">
                         <h4><i class="bi bi-person"></i> <?= htmlspecialchars($user['username']) ?> (<?= $user['role'] ?>)</h4>
                     </span>
@@ -12,8 +12,8 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRelacionamento" onclick="resetForm()">
-                                <i class="bi bi-plus-lg"></i> Novo relacionamento
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalStatus" onclick="resetForm()">
+                                <i class="bi bi-plus-lg"></i> Novo status
                             </button>
                         </div>
                     </div>
@@ -25,18 +25,16 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($relacionamentos as $a): ?>
+                            <?php foreach ($status as $a): ?>
                             <tr>
                                 <td><?= htmlspecialchars($a['id']) ?></td>
                                 <td><?= htmlspecialchars($a['nome']) ?></td>
-                                <td><?= htmlspecialchars($a['descricao']) ?></td>
                                 <td>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteRelacionamento(<?= $a['id'] ?>, '<?= htmlspecialchars($a['nome']) ?>')">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteStatus(<?= $a['id'] ?>, '<?= htmlspecialchars($a['nome']) ?>')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -46,23 +44,19 @@
                     </table>
                 </div>
 
-                <!-- Modal Relacionamento -->
-                <div class="modal fade" id="modalRelacionamento" tabindex="-1" aria-labelledby="modalRelacionamentoLabel" aria-hidden="true">
+                <!-- Modal Status -->
+                <div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="modalStatusLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalRelacionamentoLabel">Novo Relacionamento</h5>
+                                <h5 class="modal-title" id="modalStatusLabel">Novo Status</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form id="formRelacionamento" method="POST" action="api/relacionamentos/crud.php">
+                            <form id="formStatus" method="POST" action="api/status/crud.php">
                                 <div class="modal-body">
                                     <div class="mb-3" id="nomeGroup">
-                                        <label for="relacionamentoNome" class="form-label">Nome do Relacionamento</label>
-                                        <input type="text" class="form-control" id="relacionamentoNome" name="nome" required>
-                                    </div>
-                                    <div class="mb-3" id="descricaoGroup">
-                                        <label for="relacionamentoDescricao" class="form-label">Descrição</label>
-                                        <input type="text" class="form-control" id="relacionamentoDescricao" name="descricao" required>
+                                        <label for="statusNome" class="form-label">Nome do Status</label>
+                                        <input type="text" class="form-control" id="statusNome" name="nome" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -73,11 +67,11 @@
                     </div>
                 </div>
                 <script>
-                    function deleteRelacionamento(id, nome) {
-                        if (confirm(`Tem certeza que deseja deletar o relacionamento "${nome}"?`)) {
+                    function deleteStatus(id, nome) {
+                        if (confirm(`Tem certeza que deseja deletar o status "${nome}"?`)) {
                             const form = document.createElement('form');
                             form.method = 'POST';
-                            form.action = 'api/relacionamentos/crud.php';
+                            form.action = 'api/status/crud.php';
 
                             const idInput = document.createElement('input');
                             idInput.type = 'hidden';

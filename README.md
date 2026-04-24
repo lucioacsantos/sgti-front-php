@@ -25,6 +25,15 @@ Este é o frontend em PHP para o sistema SGTI (Sistema de Gestão de TI). O proj
 ## Estrutura do Projeto
 ```
 sgti-front-php/
+├── api/                     # API CRUD para tabelas de configuração
+|   ├── ambientes/
+│       └── crud.php
+|   ├── criticidade/
+│       └── crud.php
+|   ├── tipo_ativo/
+│       └── crud.php
+|   ├── tipo_relacionamento/
+│       └── crud.php
 ├── auth/                    # Classes de autenticação
 │   └── Auth.php
 ├── config/                  # Configurações do sistema
