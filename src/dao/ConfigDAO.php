@@ -136,4 +136,31 @@ class ConfigDAO extends BaseDAO {
         return $stmt->execute([$id]);
     }
 
+    // Métodos para SOR
+    public function getAllSOR() {
+        $sql = "SELECT id, abreviacao, descricao, lifecycle FROM sor ORDER BY abreviacao";
+        return $this->db->query($sql)->fetchAll();
+    }
+
+    public function getSORById($id) {
+        $stmt = $this->db->prepare("SELECT id, abreviacao, descricao, lifecycle FROM sor WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    public function insertSOR($abreviacao, $descricao, $lifecycle) {
+        $stmt = $this->db->prepare("INSERT INTO sor (abreviacao, descricao, lifecycle) VALUES (?, ?, ?)");
+        return $stmt->execute([$abreviacao, $descricao, $lifecycle]);
+    }
+
+    public function updateSOR($id, $abreviacao, $descricao, $lifecycle) {
+        $stmt = $this->db->prepare("UPDATE sor SET abreviacao = ?, descricao = ?, lifecycle = ? WHERE id = ?");
+        return $stmt->execute([$abreviacao, $descricao, $lifecycle, $id]);
+    }
+
+    public function deleteSOR($id) {
+        $stmt = $this->db->prepare("DELETE FROM sor WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
 }

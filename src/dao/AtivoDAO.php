@@ -1,34 +1,21 @@
 <?php
 class AtivoDAO extends BaseDAO {
 
-    public function create($data) {
-        $sql = "
-            INSERT INTO ativo (nome, descricao, tipo_id, ambiente_id, responsavel)
-            VALUES (?, ?, ?, ?, ?)
-            RETURNING id
-        ";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            $data['nome'],
-            $data['descricao'],
-            $data['tipo_id'],
-            $data['ambiente_id'],
-            $data['responsavel']
-        ]);
-
-        return $stmt->fetchColumn();
-    }
-
     public function getAll() {
         $sql = "
             SELECT 
                 a.*,
                 t.nome as tipo,
-                amb.nome as ambiente
+                amb.nome as ambiente,
+                s.nome as status,
+                c.nivel as criticidade,
+                sor.abreviacao as sor
             FROM ativo a
             JOIN tipo_ativo t ON a.tipo_id = t.id
             LEFT JOIN ambiente amb ON a.ambiente_id = amb.id
+            LEFT JOIN status_ativo s ON a.status_id = s.id
+            LEFT JOIN criticidade c ON a.criticidade_id = c.id
+            LEFT JOIN sor ON a.sor_id = sor.id
             ORDER BY a.nome
         ";
 
@@ -54,10 +41,16 @@ class AtivoDAO extends BaseDAO {
                 a.id,
                 a.nome,
                 t.nome as tipo,
-                amb.nome as ambiente
+                amb.nome as ambiente,
+                s.nome as status,
+                c.nome as criticidade,
+                sor.nome as sor
             FROM ativo a
             JOIN tipo_ativo t ON a.tipo_id = t.id
             LEFT JOIN ambiente amb ON a.ambiente_id = amb.id
+            LEFT JOIN status_ativo s ON a.status_id = s.id
+            LEFT JOIN criticidade c ON a.criticidade_id = c.id
+            LEFT JOIN sor ON a.sor_id = sor.id
             WHERE LOWER(t.nome) = LOWER(?)
             ORDER BY a.nome
         ";

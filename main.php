@@ -12,28 +12,26 @@ require_once 'src/dao/RelacionamentoDAO.php';
 
 function getHostsView() {
     $dao = new AtivoDAO();
-    $relDao = new RelacionamentoDAO();
-
-    $hosts = $dao->getByTipo('host');
-    $rels = $relDao->getAll();
+    $hosts = $dao->getAll();
 
     $result = [];
 
     foreach ($hosts as $h) {
-        $apps = [];
-
-        foreach ($rels as $r) {
-            if ($r['origem'] == $h['nome'] && $r['tipo'] == 'roda_em') {
-                $apps[] = $r['destino'];
-            }
-        }
-
         $result[] = [
+            'id' => $h['id'],
             'nome' => $h['nome'],
-            'ambiente' => $h['ambiente'] ?? 'N/A',
-            'area' => '-', // não existe mais no modelo
-            'so' => '-',   // não existe mais
-            'aplicacoes' => implode(', ', $apps)
+            'descricao' => $h['descricao'],
+            'tipo_id' => $h['tipo_id'],
+            'ambiente_id' => $h['ambiente_id'],
+            'ambiente' => $h['ambiente'],
+            'status_id' => $h['status_id'],
+            'criticidade_id' => $h['criticidade_id'],
+            'criticidade' => $h['criticidade'],
+            'responsavel' => $h['responsavel'],
+            'created_at' => $h['created_at'],
+            'updated_at' => $h['updated_at'],
+            'sor_id' => $h['sor_id'],
+            'sor' => $h['sor']
         ];
     }
 
@@ -104,6 +102,11 @@ function getAllTipoRelacionamento() {
 function getAllRelacionamentos() {
     $dao = new RelacionamentoDAO();
     return $dao->getAll();
+}
+
+function getAllSOR() {
+    $dao = new ConfigDAO();
+    return $dao->getAllSOR();
 }
 
 ?>

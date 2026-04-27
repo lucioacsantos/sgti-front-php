@@ -38,9 +38,10 @@
                             <tr>
                                 <td><?= htmlspecialchars($h['nome']) ?></td>
                                 <td><span class="badge bg-info text-dark"><?= $h['ambiente'] ?></span></td>
-                                <td><?= $h['area']  ?></td>
-                                <td><?= $h['so'] /*$h['so_versao']*/ ?></td>
-                                <td>
+                                <td><span class="badge bg-secondary"><?= $h['responsavel'] ?></span></td>
+                                <td><span class="badge bg-secondary"><?= $h['sor'] ?></span></td>
+                                <td><span class="badge bg-secondary"> - </span></td>
+                                <!--<td>
                                     <?php if ($h['aplicacoes']): ?>
                                         <?php 
                                         $apps = explode(', ', $h['aplicacoes']); 
@@ -50,7 +51,7 @@
                                     <?php else: ?>
                                         <span class="text-muted small">Nenhuma aplicação</span>
                                     <?php endif; ?>
-                                </td>
+                                </td>-->
                                 <td>
                                     <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                                 </td>

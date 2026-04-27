@@ -45,6 +45,7 @@ $user = [
                                 <li class="nav-item"><a href="?page=ambiente" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Ambiente</a></li>
                                 <li class="nav-item"><a href="?page=criticidade" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Criticidade</a></li>
                                 <li class="nav-item"><a href="?page=relacionamentos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Relacionamentos</a></li>
+                                <li class="nav-item"><a href="?page=sor" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Sistemas operacionais</a></li>
                                 <li class="nav-item"><a href="?page=status" class="nav-link text-white-50 ps-4"><i class="bi bi-lock"></i> Status</a></li>
                                 <li class="nav-item"><a href="?page=tipos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipos</a></li>
                             </ul>
@@ -94,7 +95,11 @@ $user = [
                 elseif ($page == 'relacionamentos'):
                     $relacionamentos = getAllTipoRelacionamento();
                     include 'views/relacionamentos.php';
-                    
+
+                elseif ($page == 'sor'):
+                    $sor = getAllSOR();
+                    include 'views/sor.php';
+
                 elseif ($page == 'status'):
                     $status = getAllStatusAtivo();
                     include 'views/status.php';
