@@ -163,4 +163,31 @@ class ConfigDAO extends BaseDAO {
         return $stmt->execute([$id]);
     }
 
+    // Métodos para Áreas
+    public function getAllAreas() {
+        $sql = "SELECT id, nome, sigla FROM area ORDER BY nome";
+        return $this->db->query($sql)->fetchAll();
+    }
+
+    public function getAreaById($id) {
+        $stmt = $this->db->prepare("SELECT id, nome, sigla FROM area WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    public function insertArea($nome, $sigla) {
+        $stmt = $this->db->prepare("INSERT INTO area (nome, sigla) VALUES (?, ?)");
+        return $stmt->execute([$nome, $sigla]);
+    }
+
+    public function updateArea($id, $nome, $sigla) {
+        $stmt = $this->db->prepare("UPDATE area SET nome = ?, sigla = ? WHERE id = ?");
+        return $stmt->execute([$nome, $sigla, $id]);
+    }
+
+    public function deleteArea($id) {
+        $stmt = $this->db->prepare("DELETE FROM area WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
 }

@@ -109,4 +109,9 @@ function getAllSOR() {
     return $dao->getAllSOR();
 }
 
+function getAllAreas() {
+    $dao = new ConfigDAO();
+    return $dao->getAllAreas();
+}
+
 ?>

@@ -43,6 +43,7 @@ $user = [
                         <div class="accordion-body p-0">
                             <ul class="nav flex-column">
                                 <li class="nav-item"><a href="?page=ambiente" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Ambiente</a></li>
+                                <li class="nav-item"><a href="?page=areas" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Áreas</a></li>
                                 <li class="nav-item"><a href="?page=criticidade" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Criticidade</a></li>
                                 <li class="nav-item"><a href="?page=relacionamentos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Relacionamentos</a></li>
                                 <li class="nav-item"><a href="?page=sor" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Sistemas operacionais</a></li>
@@ -87,6 +88,10 @@ $user = [
                 elseif ($page == 'ambiente'):
                     $ambientes = getAllAmbiente();
                     include 'views/ambientes.php';
+                
+                elseif ($page == 'areas'):
+                    $areas = getAllAreas();
+                    include 'views/areas.php';
 
                 elseif ($page == 'criticidade'):
                     $criticidades = getAllCriticidade();
