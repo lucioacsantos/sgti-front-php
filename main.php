@@ -39,39 +39,9 @@ function getHostsView() {
 }
 
 
-function getAplicacoesView() {
-    $dao = new AtivoDAO();
-    $relDao = new RelacionamentoDAO();
-
-    $apps = $dao->getByTipo('aplicacao');
-    $rels = $relDao->getAll();
-
-    $data = [];
-
-    foreach ($apps as $app) {
-        $instancias = [];
-
-        foreach ($rels as $r) {
-            if ($r['destino'] == $app['nome'] && $r['tipo'] == 'roda_em') {
-                $instancias[] = [
-                    'host' => $r['origem'],
-                    'rotulo' => '-',
-                    'usuario' => '-',
-                    'path' => '-',
-                    'validador' => '-'
-                ];
-            }
-        }
-
-        $data[] = [
-            'id' => $app['id'],
-            'nome' => $app['nome'],
-            'categoria' => '-',
-            'instancias' => $instancias
-        ];
-    }
-
-    return $data;
+function getAllAplicacoes() {
+    $dao = new ConfigDAO();
+    return $dao->getAllAplicacoes();
 }
 
 function getAllStatusAtivo() {

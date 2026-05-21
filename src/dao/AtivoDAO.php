@@ -22,7 +22,7 @@ class AtivoDAO extends BaseDAO {
         return $this->db->query($sql)->fetchAll();
     }
 
-    public function getById($id) {
+    public function getById(int $id) {
         $stmt = $this->db->prepare("
             SELECT * FROM ativo WHERE id = ?
         ");

@@ -2,18 +2,18 @@
 session_start();
 
 // Autenticação e autorização
-/* require_once 'src/auth/AuthService.php';
+require_once 'src/auth/AuthService.php';
 
 // exige leitura mínima
 AuthService::requireRead();
 
-$user = $_SESSION['user']; */
+$user = $_SESSION['user'];
 
 /* Usuário de desenvolvimento - sempre admin */
-$user = [
+/* $user = [
     'username' => 'admin',
     'role' => 'cmdb-admin'
-];
+]; */
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ $user = [
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100 text-white p-3">
-            <h4><i class="bi bi-box-seam"></i> SGTI ::: CMDB</h4>
+            <h4><i class="bi bi-box-seam"></i><a href="index.php" class="text-white text-decoration-none"> SGTI ::: CMDB</a></h4>
             <hr>
             <div class="accordion accordion-flush" id="accordionMenu">
                 <div class="accordion-item bg-dark border-secondary">
@@ -47,8 +47,8 @@ $user = [
                                 <li class="nav-item"><a href="?page=criticidade" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Criticidade</a></li>
                                 <li class="nav-item"><a href="?page=relacionamentos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Relacionamentos</a></li>
                                 <li class="nav-item"><a href="?page=sor" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Sistemas operacionais</a></li>
-                                <li class="nav-item"><a href="?page=status" class="nav-link text-white-50 ps-4"><i class="bi bi-lock"></i> Status</a></li>
-                                <li class="nav-item"><a href="?page=tipos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipos</a></li>
+                                <li class="nav-item"><a href="?page=status" class="nav-link text-white-50 ps-4"><i class="bi bi-lock"></i> Status dos ativos</a></li>
+                                <li class="nav-item"><a href="?page=tipos" class="nav-link text-white-50 ps-4"><i class="bi bi-people"></i> Tipos de ativos</a></li>
                             </ul>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ $user = [
                     include 'views/hosts.php';
                 
                 elseif ($page == 'aplicacao'):
-                    $aplicacoes = getAplicacoesView();
+                    $aplicacoes = getAllAplicacoes();
                     include 'views/aplicacoes.php';
 
                 elseif ($page == 'ambiente'):
