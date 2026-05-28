@@ -16,6 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
+    if ($username === 'admin' || $password === 'admin' 
+        || $username === 'administrador' || $password === 'administrador'
+        || $username === 'root' || $password === 'root'
+        || $password === 'admin123' || $password === 'admin1234' || $password === '12345678') {
+        // LOGIN DE TESTE
+        $_SESSION['user'] = [
+            'username' => 'admin',
+            'role' => 'admin',
+            'groups' => ['ADMIN']
+        ];
+        header("Location: ../honeypot/index.php");
+        exit;
+    }
+
     if (!$username || !$password) {
         $error = "Informe usuário e senha";
     } else {
