@@ -38,7 +38,7 @@
                             <tr>
                                 <td><?= htmlspecialchars($h['nome']) ?></td>
                                 <td><span class="badge bg-info text-dark"><?= $h['ambiente'] ?></span></td>
-                                <td><span class="badge bg-secondary"><?= $h['responsavel'] ?></span></td>
+                                <td><span class="badge bg-secondary"><?= $h['area'] ?></span></td>
                                 <td><span class="badge bg-secondary"><?= $h['sor'] ?></span></td>
                                 <td><span class="badge bg-secondary"> - </span></td>
                                 <!--<td>

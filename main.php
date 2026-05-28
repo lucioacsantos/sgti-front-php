@@ -27,7 +27,7 @@ function getHostsView() {
             'status_id' => $h['status_id'],
             'criticidade_id' => $h['criticidade_id'],
             'criticidade' => $h['criticidade'],
-            'responsavel' => $h['responsavel'],
+            'area' => $h['area'],
             'created_at' => $h['created_at'],
             'updated_at' => $h['updated_at'],
             'sor_id' => $h['sor_id'],

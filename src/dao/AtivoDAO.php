@@ -9,13 +9,15 @@ class AtivoDAO extends BaseDAO {
                 amb.nome as ambiente,
                 s.nome as status,
                 c.nivel as criticidade,
-                sor.abreviacao as sor
+                sor.abreviacao as sor,
+                areas.sigla as area
             FROM ativo a
             JOIN tipo_ativo t ON a.tipo_id = t.id
             LEFT JOIN ambiente amb ON a.ambiente_id = amb.id
             LEFT JOIN status_ativo s ON a.status_id = s.id
             LEFT JOIN criticidade c ON a.criticidade_id = c.id
             LEFT JOIN sor ON a.sor_id = sor.id
+            LEFT JOIN areas ON a.areas_id = areas.id
             ORDER BY a.nome
         ";
 

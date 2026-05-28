@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card p-4 shadow">
             <h3>Digite o código 2FA</h3>
             <form method="POST">
-                <input name="code" type="number" class="form-control mb-2" autofocus required>
+                <input name="code" type="number" class="form-control mb-2" autocomplete="off" autofocus required>
                 <button class="btn btn-primary w-100">Validar</button>
             </form>
         </div>
