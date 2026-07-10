@@ -136,9 +136,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Extraímos o texto das colunas Hostname (1ª) e Área (3ª)
             const hostname = row.querySelector('td:nth-child(1)')?.textContent.toLowerCase() || "";
             const area = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || "";
+            const so = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || "";
             
             // Verificamos se o termo de busca está presente em qualquer uma das duas
-            if (hostname.includes(searchTerm) || area.includes(searchTerm)) {
+            if (hostname.includes(searchTerm) || area.includes(searchTerm) || so.includes(searchTerm)) {
                 row.style.display = "";
             } else {
                 row.style.display = "none";

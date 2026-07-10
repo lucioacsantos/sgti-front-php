@@ -13,7 +13,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-search"></i></span>
-                            <input type="text" id="searchInput" class="form-control" placeholder="Filtrar por hostname ou área...">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Filtrar por hostname, área ou SO.">
                             <button class="btn btn-outline-secondary" type="button" id="clearSearch" style="display: none;">
                                 <i class="bi bi-x-lg"></i>
                             </button>
